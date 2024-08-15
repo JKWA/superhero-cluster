@@ -1,0 +1,131 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Gotham",
+            "type": "shell",
+            "command": "iex",
+            "args": [
+                "--name", "gotham@127.0.0.1",
+                "--cookie", "secret_superhero_cookie",
+                "-S", "mix"
+            ],
+            "options": {
+                "env": {
+                    "MIX_ENV": "dev",
+                    "CITY_NAME": "gotham"
+                },
+                "cwd": "${workspaceFolder}/location"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Metropolis",
+            "type": "shell",
+            "command": "iex",
+            "args": [
+                "--name", "metropolis@127.0.0.1",
+                "--cookie", "secret_superhero_cookie",
+                "-S", "mix"
+
+            ],
+            "options": {
+                "env": {
+                    "MIX_ENV": "dev",
+                    "CITY_NAME": "metropolis"
+                },
+                "cwd": "${workspaceFolder}/location"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Capitol City",
+            "type": "shell",
+            "command": "iex",
+            "args": [
+                "--name", "capitol@127.0.0.1",
+                "--cookie", "secret_superhero_cookie",
+                "-S", "mix"
+            ],
+            "options": {
+                "env": {
+                    "MIX_ENV": "dev",
+                    "CITY_NAME": "capitol"
+                },
+                "cwd": "${workspaceFolder}/location"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Dispatch",
+            "type": "shell",
+            "command": "iex",
+            "args": [
+                "--name", "dispatch@127.0.0.1",
+                "--cookie", "secret_superhero_cookie",
+                "-S", "mix", "phx.server"
+            ],
+            "options": {
+                "env": {
+                    "MIX_ENV": "dev",
+                    "CITY_NAME": "capitol"
+                },
+                "cwd": "${workspaceFolder}/superhero"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Run Superhero Dispatch",
+            "dependsOn": [
+                "Gotham",
+                "Metropolis",
+                "Capitol City",
+                "Dispatch"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
