@@ -32,8 +32,12 @@ Hooks.SelectChange = {
             const id = this.el.dataset.id || this.el.id;
             this.pushEvent("select_changed", { value: selectedValue, id: id });
         });
-    }
-  }
+    },
+    updated() {
+        this.el.value = this.__view__.context.value;
+      }
+}
+
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})

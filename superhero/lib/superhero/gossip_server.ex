@@ -1,13 +1,10 @@
 defmodule Superhero.GossipServer do
   use GenServer
-  require Logger
+  alias Superhero.Location
 
   @gossip_interval 1_000
-  @locations [:gotham, :metropolis, :capitol]
 
-  # Public API
   def start_link(_) do
-    IO.puts("Starting GossipServer")
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
@@ -15,7 +12,6 @@ defmodule Superhero.GossipServer do
     GenServer.cast(__MODULE__, :start_gossip)
   end
 
-  # GenServer Callbacks
   @impl true
   def init(state) do
     schedule_gossip()
@@ -36,21 +32,17 @@ defmodule Superhero.GossipServer do
     {:noreply, state}
   end
 
-  # Private functions
   defp schedule_gossip do
-    # Schedules the next gossip event after the interval
     Process.send_after(self(), :gossip, @gossip_interval)
   end
 
   defp gossip do
-    source = Enum.random(@locations)
+    locations = Location.get_locations()
 
-    source_data = GenServer.call({:global, source}, :get_superheroes)
+    source = Enum.random(locations)
+    destination = Enum.random(locations -- [source])
 
-    destination = Enum.random(@locations -- [source])
-
-    GenServer.cast({:global, destination}, {:update_superheroes, source_data})
-
-    # Logger.info("Gossiped data from #{source} to #{destination}")
+    source_data = Location.get_data(source)
+    Location.update_data(source_data, destination)
   end
 end

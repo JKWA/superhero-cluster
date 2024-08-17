@@ -109,7 +109,7 @@
         },
 
         {
-            "label": "Run Superhero Dispatch",
+            "label": "Run Superhero Cluster",
             "dependsOn": [
                 "Gotham",
                 "Metropolis",

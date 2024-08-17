@@ -1,29 +1,27 @@
 defmodule Superhero.Application do
-  @moduledoc false
   require Logger
   use Application
+  @nodes ["gotham@127.0.0.1", "metropolis@127.0.0.1", "capitol@127.0.0.1"]
 
   @impl true
   def start(_type, _args) do
-    # Attempt to connect to the Gotham node
-    connect_to_gotham()
-    connect_to_metropolis()
-    connect_to_capitol_city()
+    connect_to_nodes(@nodes)
 
     children = [
-      # Start the Telemetry supervisor
       SuperheroWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: Superhero.PubSub},
-      # Start the Gossip server
       Superhero.GossipServer,
-      # Start the Endpoint (http/https)
+      Superhero.PollServer,
       SuperheroWeb.Endpoint
-      # Add other workers or supervisors here
     ]
 
-    # Options for the supervisor
-    opts = [strategy: :one_for_one, name: Superhero.Supervisor]
+    opts = [
+      strategy: :one_for_one,
+      max_restarts: 3,
+      max_seconds: 1,
+      name: Superhero.Supervisor
+    ]
+
     Supervisor.start_link(children, opts)
   end
 
@@ -33,42 +31,13 @@ defmodule Superhero.Application do
     :ok
   end
 
-  defp connect_to_gotham do
-    case Node.connect(:"gotham@127.0.0.1") do
-      true ->
-        Logger.info("Connected to Gotham node successfully.")
-
-      false ->
-        Logger.error("Failed to connect to Gotham node.")
-
-      :ignored ->
-        Logger.info("Already connected to Gotham node.")
-    end
-  end
-
-  defp connect_to_metropolis do
-    case Node.connect(:"metropolis@127.0.0.1") do
-      true ->
-        Logger.info("Connected to Metropolis node successfully.")
-
-      false ->
-        Logger.error("Failed to connect to Metropolis node.")
-
-      :ignored ->
-        Logger.info("Already connected to Metropolis node.")
-    end
-  end
-
-  defp connect_to_capitol_city do
-    case Node.connect(:"capitol@127.0.0.1") do
-      true ->
-        Logger.info("Connected to Capital City node successfully.")
-
-      false ->
-        Logger.error("Failed to connect to Capital City node.")
-
-      :ignored ->
-        Logger.info("Already connected to Capital City node.")
-    end
+  defp connect_to_nodes(nodes) do
+    Enum.each(nodes, fn node ->
+      case Node.connect(String.to_atom(node)) do
+        true -> Logger.info("Connected to #{node} successfully.")
+        false -> Logger.error("Failed to connect to #{node}.")
+        :ignored -> Logger.info("Already connected to #{node}.")
+      end
+    end)
   end
 end

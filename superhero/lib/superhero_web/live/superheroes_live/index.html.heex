@@ -28,6 +28,7 @@
   <:col :let={{_id, superhero}} label="Assign">
     <.select 
       class="max-w-xs"
+      phx-update="replace"
       id={"select__" <> superhero.id} 
       data-id={superhero.id}
       phx-hook="SelectChange"
@@ -36,7 +37,6 @@
     />
   </:col>
   <:action :let={{_id, superhero}}>
-
       <.button
       phx-click={JS.push("delete", value: %{id: superhero.id})}
     >

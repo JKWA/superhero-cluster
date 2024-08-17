@@ -33,11 +33,11 @@ make setup
 
 The project includes Visual Studio Code tasks defined in `.vscode/tasks.json`.
 
-### Run Superhero Dispatch
+### Run Superhero Cluster
 
 1. Open the command palette in Visual Studio Code by pressing `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS).
 2. Type `Run Task` and select it from the list.
-3. Choose `Run Superhero Dispatch`.
+3. Choose `Run Superhero Cluster`.
 
 Running the `Run Superhero Dispatch` task generates four local terminals in VS Code: one for each city and one for the dispatch LiveView.
 

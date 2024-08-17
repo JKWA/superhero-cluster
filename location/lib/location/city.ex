@@ -26,13 +26,7 @@ defmodule Location.City do
   end
 
   @impl true
-  def handle_call(:bomb_city, _from, state) do
-    Logger.info("#{state.city_name} is being bombed!")
-    exit(:boom)
-  end
-
-  @impl true
-  def handle_cast({:assign_superhero, incoming_data, superhero_id}, state) do
+  def handle_call({:assign_superhero, incoming_data, superhero_id}, _from, state) do
     timestamp = System.system_time(:second)
 
     combined_data = converge_superhero(state.data, incoming_data)
@@ -59,8 +53,16 @@ defmodule Location.City do
           })
         )
 
-      {:noreply, update_state(state, superheroes_updated, combined_data.tombstones)}
+      new_state = update_state(state, superheroes_updated, combined_data.tombstones)
+
+      {:reply, new_state.data, new_state}
     end
+  end
+
+  @impl true
+  def handle_cast(:bomb_city, _from, state) do
+    Logger.info("#{state.city_name} is being bombed!")
+    exit(:boom)
   end
 
   @impl true
