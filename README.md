@@ -1,6 +1,6 @@
-# Superhero Cluster
+# Dispatch Cluster
 
-Welcome to the Superhero Dispatch project! This README will guide you through the setup process and explain how to run various tasks using Visual Studio Code.
+Welcome to the Dispatch Dispatch project! This README will guide you through the setup process and explain how to run various tasks using Visual Studio Code.
 
 ## Prerequisites
 
@@ -33,12 +33,12 @@ make setup
 
 The project includes Visual Studio Code tasks defined in `.vscode/tasks.json`.
 
-### Run Superhero Cluster
+### Run Dispatch Cluster
 
 1. Open the command palette in Visual Studio Code by pressing `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS).
 2. Type `Run Task` and select it from the list.
-3. Choose `Run Superhero Cluster`.
+3. Choose `Run Dispatch Cluster`.
 
-Running the `Run Superhero Dispatch` task generates four local terminals in VS Code: one for each city and one for the dispatch LiveView.
+Running the `Run Superhero Cluster` task generates four local terminals in VS Code: one for each city and one for the dispatch LiveView.
 
-Superhero runs on [http://localhost:4900](http://localhost:4900)
+Dispatch runs on [http://localhost:4900](http://localhost:4900)

@@ -1,0 +1,48 @@
+<.header>
+  Dispatches
+  <:actions>
+    <.button
+      phx-click={JS.push("create", value: %{})}
+      >
+      Create superhero
+    </.button>
+
+    <.button
+      phx-click={JS.push("bomb", value: %{})}
+      >
+      Destroy city
+    </.button>
+  </:actions>
+</.header>
+
+
+<.table 
+  id="superheroes" 
+  rows={@data.superheroes} 
+  >
+  <:col :let={{_id, superhero}} label="Name"><%= superhero.name %></:col>
+  <:col :let={{_id, superhero}} label="Patrolling"><%= if superhero.is_patrolling, do: "Patrolling", else: "Idle" %></:col>
+  <:col :let={{_id, superhero}} label="Location"><%= superhero.location %></:col>
+  <:col :let={{_id, superhero}} label="Health"><%= superhero.health %></:col>
+
+  <:col :let={{_id, superhero}} label="Assign">
+    <.select 
+      class="max-w-xs"
+      phx-update="replace"
+      id={"select__" <> superhero.id} 
+      data-id={superhero.id}
+      phx-hook="SelectChange"
+      value={superhero.location} 
+      options={@location_options}
+    />
+  </:col>
+  <:action :let={{_id, superhero}}>
+      <.button
+      phx-click={JS.push("delete", value: %{id: superhero.id})}
+    >
+      Terminate
+    </.button>
+  </:action>
+</.table>
+
+

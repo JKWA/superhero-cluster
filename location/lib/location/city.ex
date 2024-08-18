@@ -59,7 +59,6 @@ defmodule Location.City do
     end
   end
 
-  @impl true
   def handle_cast(:bomb_city, _from, state) do
     Logger.info("#{state.city_name} is being bombed!")
     exit(:boom)
@@ -107,7 +106,7 @@ defmodule Location.City do
 
       superhero_name = updated_heroes[random_id].name
 
-      Logger.info("Superhero #{superhero_name} is now patrolling in #{state.city_name}")
+      Logger.info("Dispatch #{superhero_name} is now patrolling in #{state.city_name}")
       update_state(state, updated_heroes, state.data.tombstones)
     end
   end
@@ -199,10 +198,10 @@ defmodule Location.City do
 
   defp log_fight_result(superhero_name, health_reduction, new_health, city_name) do
     if new_health <= 0 do
-      Logger.info("Superhero #{superhero_name} lost the fight and was removed from #{city_name}")
+      Logger.info("Dispatch #{superhero_name} lost the fight and was removed from #{city_name}")
     else
       Logger.info(
-        "Superhero #{superhero_name} fought a villain and lost #{health_reduction} health points. Remaining health: #{new_health}"
+        "Dispatch #{superhero_name} fought a villain and lost #{health_reduction} health points. Remaining health: #{new_health}"
       )
     end
   end

@@ -95,7 +95,7 @@
                     "MIX_ENV": "dev",
                     "CITY_NAME": "capitol"
                 },
-                "cwd": "${workspaceFolder}/superhero"
+                "cwd": "${workspaceFolder}/dispatch"
             },
             "presentation": {
                 "echo": true,
